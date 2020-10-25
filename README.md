@@ -74,6 +74,7 @@ public void setAll(){
 ```
 **Refactor**: This method has too many functions we need to exact method to separate
 their work and make it easy to read and shorter code.
+
 **After refactor:**
 ```java
    public void setAll(){
@@ -218,7 +219,7 @@ create a temp variable make the code to be longer but easy to read and understan
 **Problem:** LineChartController.java and BarChartController,java are almost the same behavior
 we want to create some method only one time and it can use for 2 class
 
-###First we need to make a BarchartController class is a sub-class from LineChartController class
+### First we need to make a BarchartController class is a sub-class from LineChartController class
 
 ```java
 public class BarChartController extends LineChartController implements Initializable {
