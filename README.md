@@ -315,3 +315,53 @@ sub-class of LineChartController class it can use the method that we already ext
         lb1.setText(String.format("%s : %,d cases", graphType, Integer.parseInt(casee)));
     }
 ```
+## getCountryConfirmCase() method in GraphData.java
+**Before refactor:**
+```java
+    public static ArrayList<String> getCountryConfirmCase(String type, String country) throws Exception {
+
+        String url = "https://covid.ourworldindata.org/data/ecdc/new_deaths.csv";
+
+        if (type.equals("Total confirmed cases")) url = "https://covid.ourworldindata.org/data/ecdc/total_cases.csv";
+        else if (type.equals("Total deaths")) url = "https://covid.ourworldindata.org/data/ecdc/total_deaths.csv";
+        else if (type.equals("New confirmed cases")) url = "https://covid.ourworldindata.org/data/ecdc/new_cases.csv";
+
+        String[] c = new String[0];
+        ArrayList<String> data = new ArrayList<>();
+        int index = 0;
+
+        URL oracle = new URL(url);
+
+        //a lot of java code..
+    }
+```
+**Refactor**: if-else statement in this method make code too long we need to extact method and remove
+temp variable that make code a little bit shorter and easy to read. 
+
+**After refactor:**
+```java
+    public static String selectUrl(String type) {
+        String url = "https://covid.ourworldindata.org/data/ecdc/new_deaths.csv";
+        if (type.equals("Total confirmed cases")){
+            url = "https://covid.ourworldindata.org/data/ecdc/total_cases.csv";
+        }
+        else if (type.equals("Total deaths")) {
+            url = "https://covid.ourworldindata.org/data/ecdc/total_deaths.csv";
+        }
+        else if (type.equals("New confirmed cases")) {
+            url = "https://covid.ourworldindata.org/data/ecdc/new_cases.csv";
+        }
+        return url;
+    }
+
+    public static ArrayList<String> getCountryConfirmCase(String type, String country) throws Exception {
+
+        String[] c = new String[0];
+        ArrayList<String> data = new ArrayList<>();
+        int index = 0;
+
+        URL oracle = new URL(selectUrl(type));
+
+        //a lot of java code..
+    }
+```
